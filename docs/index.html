@@ -4,11 +4,301 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creative Toolbox — 创意工具箱</title>
-  <link rel="icon" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.svg" />
+  <style>
+    /* === Homepage-specific Styles === */
+
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === Background Orbs === */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-orb.orb-1 {
+      width: 500px; height: 500px;
+      background: var(--primary);
+      top: -150px; right: -100px;
+      animation: floatA 12s ease-in-out infinite;
+    }
+    .bg-orb.orb-2 {
+      width: 400px; height: 400px;
+      background: var(--accent);
+      bottom: -100px; left: -80px;
+      animation: floatB 15s ease-in-out infinite;
+    }
+    .bg-orb.orb-3 {
+      width: 300px; height: 300px;
+      background: #ff6b9d;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: floatC 10s ease-in-out infinite;
+    }
+
+    @keyframes floatA {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-40px, 40px) scale(1.1); }
+      66% { transform: translate(20px, -20px) scale(0.9); }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.15); }
+      66% { transform: translate(-20px, 10px) scale(0.85); }
+    }
+    @keyframes floatC {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    /* === Hero === */
+    .hero {
+      text-align: center;
+      margin-bottom: 64px;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      background: color-mix(in srgb, var(--primary) 15%, transparent);
+      color: var(--primary);
+      border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 8vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--accent), #ff6b9d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 18px;
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .hero-stat .label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    /* === Tool Cards === */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .tool-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 32px 32px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+
+    .tool-card.card-pixel::before {
+      background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--primary) 20%, transparent) 0%, transparent 70%);
+    }
+    .tool-card.card-word::before {
+      background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 20%, transparent) 0%, transparent 70%);
+    }
+
+    .tool-card:hover::before {
+      opacity: 1;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-6px);
+      border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                  0 0 0 1px color-mix(in srgb, var(--primary) 30%, transparent);
+    }
+
+    .tool-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-card .icon-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 40px;
+      transition: transform 0.3s ease;
+    }
+
+    .card-pixel .icon-wrap {
+      background: color-mix(in srgb, var(--primary) 15%, transparent);
+    }
+    .card-word .icon-wrap {
+      background: color-mix(in srgb, var(--accent) 15%, transparent);
+    }
+
+    .tool-card:hover .icon-wrap {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .tool-card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .tool-card p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .tool-card .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .tool-card .feature-tag {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      background: color-mix(in srgb, var(--primary) 10%, transparent);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .tool-card .btn {
+      padding: 10px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 10px;
+    }
+
+    .card-pixel .btn {
+      background: var(--primary);
+      color: #fff;
+    }
+    .card-pixel .btn:hover {
+      background: var(--primary-hover);
+    }
+    .card-word .btn {
+      background: var(--accent);
+      color: #000;
+    }
+    .card-word .btn:hover {
+      filter: brightness(1.1);
+    }
+
+    /* === Footer === */
+    .site-footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+    .site-footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .site-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 720px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+      .hero-stats {
+        gap: 24px;
+      }
+      .tool-card {
+        padding: 28px 20px 24px;
+      }
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* === Light theme adjustments === */
+    [data-theme="light"] .tool-card:hover {
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1),
+                  0 0 0 1px color-mix(in srgb, var(--primary) 20%, transparent);
+    }
+  </style>
   <script type="module" crossorigin src="/assets/layout-C9Kr3Hni.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/layout-D2vDRoX5.css">
 </head>
 <body>
+  <!-- Ambient background orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
   <template id="shared-nav-template">
     <nav class="shared-nav">
       <a href="/" class="logo">🎨 Creative Toolbox</a>
@@ -22,25 +312,48 @@
 
   <main class="page-wrap">
     <section class="hero">
-      <h1>🛠️ Creative Toolbox</h1>
-      <p>轻量创意工具集，浏览器里就能玩</p>
+      <div class="hero-badge">✨ 免费开源 · 浏览器即用</div>
+      <h1>创意工具箱</h1>
+      <p>随手可用的轻量创意工具集，无需安装，打开浏览器就能开始创作</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">2</div><div class="label">创意工具</div></div>
+        <div class="hero-stat"><div class="num">2</div><div class="label">导出格式</div></div>
+        <div class="hero-stat"><div class="num">∞</div><div class="label">创作可能</div></div>
+      </div>
     </section>
 
     <section class="tool-grid">
-      <div class="tool-card">
-        <div class="icon">🎨</div>
+      <a href="/tools/pixel-art/" class="tool-card card-pixel">
+        <div class="icon-wrap">🎨</div>
         <h3>像素画板</h3>
-        <p>在网格画布上绘制像素艺术，支持多尺寸网格和 PNG 导出</p>
-        <a href="/tools/pixel-art/" class="btn btn-primary">打开工具</a>
-      </div>
-      <div class="tool-card">
-        <div class="icon">☁️</div>
+        <p>在网格画布上绘制像素艺术，多尺寸可选，一键导出高清 PNG</p>
+        <div class="features">
+          <span class="feature-tag">8×8 / 16×16 / 32×32</span>
+          <span class="feature-tag">20 色预设</span>
+          <span class="feature-tag">撤销重做</span>
+          <span class="feature-tag">导出 PNG</span>
+        </div>
+        <span class="btn">打开工具 →</span>
+      </a>
+
+      <a href="/tools/word-cloud/" class="tool-card card-word">
+        <div class="icon-wrap">☁️</div>
         <h3>文字云生成器</h3>
-        <p>输入文字生成漂亮词云，多种形状配色，导出 PNG/SVG</p>
-        <a href="/tools/word-cloud/" class="btn btn-primary">打开工具</a>
-      </div>
+        <p>输入文字自动生成漂亮词云，多种形状配色，支持矢量导出</p>
+        <div class="features">
+          <span class="feature-tag">中英双语</span>
+          <span class="feature-tag">4 种形状</span>
+          <span class="feature-tag">5 套配色</span>
+          <span class="feature-tag">PNG + SVG</span>
+        </div>
+        <span class="btn">打开工具 →</span>
+      </a>
     </section>
   </main>
-
+
+  <footer class="site-footer">
+    用 ❤️ 和 AI 搭建 · <a href="https://github.com/fuyule992-lang/creative-toolbox" target="_blank">GitHub</a>
+  </footer>
+
 </body>
 </html>

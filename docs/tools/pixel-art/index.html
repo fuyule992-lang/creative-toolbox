@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>像素画板 — Creative Toolbox</title>
+  <link rel="icon" href="/favicon.svg" />
+  <style>
+    .pixel-canvas {
+      image-rendering: pixelated;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      cursor: crosshair;
+    }
+    .canvas-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .grid-size-options {
+      display: flex;
+      gap: 4px;
+    }
+    .grid-size-options .btn {
+      flex: 1;
+      text-align: center;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/pixel-art-B6j8Wf5p.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/layout-C9Kr3Hni.js">
+  <link rel="stylesheet" crossorigin href="/assets/layout-D2vDRoX5.css">
+</head>
+<body>
+  <template id="shared-nav-template">
+    <nav class="shared-nav">
+      <a href="/" class="logo">🎨 Creative Toolbox</a>
+      <div class="nav-links">
+        <a href="/tools/pixel-art/">像素画板</a>
+        <a href="/tools/word-cloud/">文字云</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" title="切换主题">🌙</button>
+    </nav>
+  </template>
+
+  <div class="tool-page">
+    <div class="canvas-area">
+      <div class="canvas-wrapper">
+        <canvas id="pixel-canvas" class="pixel-canvas"></canvas>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <!-- Drawing Tools -->
+      <div class="sidebar-section">
+        <h4>工具</h4>
+        <div class="tool-group">
+          <button class="btn btn-outline active" data-tool="pen">✏️ 铅笔</button>
+          <button class="btn btn-outline" data-tool="eraser">🧹 橡皮</button>
+          <button class="btn btn-outline" data-tool="bucket">🪣 填充</button>
+        </div>
+      </div>
+
+      <!-- Colors -->
+      <div class="sidebar-section">
+        <h4>颜色</h4>
+        <div class="color-grid" id="color-palette"></div>
+        <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+          <input type="color" id="custom-color" value="#ff0000" />
+          <span style="font-size: 13px; color: var(--text-secondary);">自定义</span>
+          <div id="current-color-preview" style="
+            width: 28px; height: 28px; border-radius: 4px; border: 2px solid var(--border);
+            background: #000; margin-left: auto;
+          "></div>
+        </div>
+      </div>
+
+      <!-- Grid Settings -->
+      <div class="sidebar-section">
+        <h4>网格尺寸</h4>
+        <div class="grid-size-options">
+          <button class="btn btn-outline btn-sm" data-grid-size="8">8×8</button>
+          <button class="btn btn-outline btn-sm active" data-grid-size="16">16×16</button>
+          <button class="btn btn-outline btn-sm" data-grid-size="32">32×32</button>
+        </div>
+        <label style="display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; cursor: pointer;">
+          <input type="checkbox" id="show-grid" checked /> 显示网格线
+        </label>
+      </div>
+
+      <!-- Actions -->
+      <div class="sidebar-section">
+        <h4>操作</h4>
+        <div class="tool-group">
+          <button class="btn btn-outline btn-sm" id="btn-undo" disabled>↩ 撤销</button>
+          <button class="btn btn-outline btn-sm" id="btn-redo" disabled>↪ 重做</button>
+        </div>
+        <div class="tool-group" style="margin-top: 8px;">
+          <button class="btn btn-outline btn-sm" id="btn-clear">🗑 清空</button>
+          <button class="btn btn-primary btn-sm" id="btn-export">📥 导出 PNG</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

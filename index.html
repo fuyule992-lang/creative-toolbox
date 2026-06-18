@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Toolbox — 创意工具箱</title>
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="stylesheet" href="/shared/layout.css" />
+</head>
+<body>
+  <template id="shared-nav-template">
+    <nav class="shared-nav">
+      <a href="/" class="logo">🎨 Creative Toolbox</a>
+      <div class="nav-links">
+        <a href="/tools/pixel-art/">像素画板</a>
+        <a href="/tools/word-cloud/">文字云</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" title="切换主题">🌙</button>
+    </nav>
+  </template>
+
+  <main class="page-wrap">
+    <section class="hero">
+      <h1>🛠️ Creative Toolbox</h1>
+      <p>轻量创意工具集，浏览器里就能玩</p>
+    </section>
+
+    <section class="tool-grid">
+      <div class="tool-card">
+        <div class="icon">🎨</div>
+        <h3>像素画板</h3>
+        <p>在网格画布上绘制像素艺术，支持多尺寸网格和 PNG 导出</p>
+        <a href="/tools/pixel-art/" class="btn btn-primary">打开工具</a>
+      </div>
+      <div class="tool-card">
+        <div class="icon">☁️</div>
+        <h3>文字云生成器</h3>
+        <p>输入文字生成漂亮词云，多种形状配色，导出 PNG/SVG</p>
+        <a href="/tools/word-cloud/" class="btn btn-primary">打开工具</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="/shared/layout.js"></script>
+</body>
+</html>

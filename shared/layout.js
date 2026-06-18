@@ -1,10 +1,13 @@
+// === Base path for GitHub Pages ===
+const BASE = import.meta.env.BASE_URL || '/';
+
 // === Nav Template ===
 const NAV_HTML = `
 <nav class="shared-nav">
-  <a href="/" class="logo">🎨 Creative Toolbox</a>
+  <a href="${BASE}" class="logo">🎨 Creative Toolbox</a>
   <div class="nav-links">
-    <a href="/tools/pixel-art/">像素画板</a>
-    <a href="/tools/word-cloud/">文字云</a>
+    <a href="${BASE}tools/pixel-art/">像素画板</a>
+    <a href="${BASE}tools/word-cloud/">文字云</a>
   </div>
   <button class="theme-toggle" id="theme-toggle" title="切换亮色/暗色主题">🌙</button>
 </nav>
@@ -14,11 +17,16 @@ const NAV_HTML = `
 document.addEventListener('DOMContentLoaded', () => {
   const template = document.getElementById('shared-nav-template');
   if (template) {
-    // If using <template> element
+    // Clone from template and fix base paths
     const clone = template.content.cloneNode(true);
+    clone.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (href && href.startsWith('/')) {
+        a.setAttribute('href', BASE + href.slice(1));
+      }
+    });
     document.body.prepend(clone);
   } else {
-    // Fallback: insert directly
     const wrapper = document.createElement('div');
     wrapper.innerHTML = NAV_HTML;
     document.body.prepend(wrapper.firstElementChild);
@@ -27,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Highlight current page in nav
   const currentPath = window.location.pathname;
   document.querySelectorAll('.nav-links a').forEach(link => {
-    if (link.getAttribute('href') === currentPath) {
+    if (link.pathname === currentPath) {
       link.classList.add('active');
     }
   });

@@ -1,0 +1,10 @@
+(function(){const n=document.createElement("link").relList;if(n&&n.supports&&n.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))r(t);new MutationObserver(t=>{for(const o of t)if(o.type==="childList")for(const c of o.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&r(c)}).observe(document,{childList:!0,subtree:!0});function s(t){const o={};return t.integrity&&(o.integrity=t.integrity),t.referrerPolicy&&(o.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?o.credentials="include":t.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function r(t){if(t.ep)return;t.ep=!0;const o=s(t);fetch(t.href,o)}})();const a="/creative-toolbox/",u=`
+<nav class="shared-nav">
+  <a href="${a}" class="logo">🎨 Creative Toolbox</a>
+  <div class="nav-links">
+    <a href="${a}tools/pixel-art/">像素画板</a>
+    <a href="${a}tools/word-cloud/">文字云</a>
+  </div>
+  <button class="theme-toggle" id="theme-toggle" title="切换亮色/暗色主题">🌙</button>
+</nav>
+`;document.addEventListener("DOMContentLoaded",()=>{const i=document.getElementById("shared-nav-template");if(i){const e=i.content.cloneNode(!0);e.querySelectorAll("a[href]").forEach(d=>{const l=d.getAttribute("href");l&&l.startsWith("/")&&d.setAttribute("href",a+l.slice(1))}),document.body.prepend(e)}else{const e=document.createElement("div");e.innerHTML=u,document.body.prepend(e.firstElementChild)}const n=window.location.pathname;document.querySelectorAll(".nav-links a").forEach(e=>{e.pathname===n&&e.classList.add("active")});const s="creative-toolbox-theme",r=document.getElementById("theme-toggle");function t(){const e=localStorage.getItem(s);return e==="light"||e==="dark"?e:window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function o(e){document.documentElement.setAttribute("data-theme",e),r&&(r.textContent=e==="dark"?"☀️":"🌙")}const c=t();o(c),r&&r.addEventListener("click",()=>{const e=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";o(e),localStorage.setItem(s,e)})});

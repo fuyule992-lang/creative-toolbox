@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文字云生成器 — Creative Toolbox</title>
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="stylesheet" href="/shared/layout.css" />
+  <style>
+    .wc-canvas {
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+    }
+    .word-cloud-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .palette-strip {
+      display: flex;
+      gap: 3px;
+      cursor: pointer;
+      padding: 4px;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+    .palette-strip.selected {
+      border-color: var(--accent);
+    }
+    .palette-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+    .shape-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+    @media (max-width: 720px) {
+      .word-cloud-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <template id="shared-nav-template">
+    <nav class="shared-nav">
+      <a href="/" class="logo">🎨 Creative Toolbox</a>
+      <div class="nav-links">
+        <a href="/tools/pixel-art/">像素画板</a>
+        <a href="/tools/word-cloud/">文字云</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" title="切换主题">🌙</button>
+    </nav>
+  </template>
+
+  <div class="word-cloud-layout">
+    <div class="canvas-area">
+      <canvas id="wc-canvas" class="wc-canvas" width="600" height="500"></canvas>
+    </div>
+
+    <div class="sidebar">
+      <!-- Text Input -->
+      <div class="sidebar-section">
+        <h4>输入文字</h4>
+        <textarea id="text-input" rows="6" placeholder="粘贴或输入文字...支持中文和英文"></textarea>
+        <div style="margin-top: 8px; display: flex; gap: 8px; align-items: center;">
+          <button class="btn btn-outline btn-sm" id="btn-example">📝 示例文本</button>
+          <span id="word-count" style="font-size: 12px; color: var(--text-secondary);"></span>
+        </div>
+      </div>
+
+      <!-- Shape -->
+      <div class="sidebar-section">
+        <h4>形状</h4>
+        <div class="shape-options">
+          <button class="btn btn-outline btn-sm active" data-shape="circle">⭕ 圆形</button>
+          <button class="btn btn-outline btn-sm" data-shape="rect">⬜ 矩形</button>
+          <button class="btn btn-outline btn-sm" data-shape="heart">❤️ 心形</button>
+          <button class="btn btn-outline btn-sm" data-shape="star">⭐ 星形</button>
+        </div>
+      </div>
+
+      <!-- Color Scheme -->
+      <div class="sidebar-section">
+        <h4>配色方案</h4>
+        <div id="palette-list"></div>
+      </div>
+
+      <!-- Sliders -->
+      <div class="sidebar-section">
+        <h4>参数</h4>
+        <div class="slider-row">
+          <label>最小字号</label><span id="val-min-size">14</span>
+        </div>
+        <input type="range" id="min-font-size" min="10" max="40" value="14" step="1" />
+        <div class="slider-row">
+          <label>最大字号</label><span id="val-max-size">60</span>
+        </div>
+        <input type="range" id="max-font-size" min="30" max="100" value="60" step="1" />
+        <div class="slider-row">
+          <label>词数上限</label><span id="val-max-words">80</span>
+        </div>
+        <input type="range" id="max-words" min="10" max="200" value="80" step="1" />
+      </div>
+
+      <!-- Actions -->
+      <div class="sidebar-section">
+        <h4>操作</h4>
+        <div class="tool-group">
+          <button class="btn btn-outline btn-sm" id="btn-regenerate">🎲 重新生成</button>
+          <button class="btn btn-primary btn-sm" id="btn-export-png">📥 PNG</button>
+          <button class="btn btn-primary btn-sm" id="btn-export-svg">📥 SVG</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/shared/layout.js"></script>
+  <script src="word-cloud.js"></script>
+</body>
+</html>

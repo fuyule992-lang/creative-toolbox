@@ -7,7 +7,25 @@
   <link rel="icon" href="/favicon.svg" />
   <link rel="stylesheet" href="/shared/layout.css" />
   <style>
-    /* === Homepage-specific Styles === */
+    /* === Body Background === */
+    body {
+      background:
+        /* dot grid */
+        radial-gradient(circle, var(--border) 1px, transparent 1px),
+        /* gradient wash */
+        linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--primary) 8%, var(--bg)) 50%, var(--bg) 100%),
+        var(--bg);
+      background-size: 24px 24px, 100% 100%, auto;
+      background-position: 0 0;
+    }
+
+    [data-theme="light"] body {
+      background:
+        radial-gradient(circle, #e5e7eb 1px, transparent 1px),
+        linear-gradient(180deg, #fafafa 0%, #f3f0ff 50%, #fafafa 100%),
+        #fafafa;
+      background-size: 24px 24px, 100% 100%, auto;
+    }
 
     .page-wrap {
       max-width: 960px;
@@ -17,48 +35,47 @@
       z-index: 1;
     }
 
-    /* === Background Orbs === */
+    /* === Floating Orbs — bigger, more visible === */
     .bg-orb {
       position: fixed;
       border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.15;
+      filter: blur(80px);
+      opacity: 0.35;
       pointer-events: none;
       z-index: 0;
     }
     .bg-orb.orb-1 {
-      width: 500px; height: 500px;
+      width: 600px; height: 600px;
       background: var(--primary);
-      top: -150px; right: -100px;
-      animation: floatA 12s ease-in-out infinite;
+      top: -200px; right: -150px;
+      animation: floatA 14s ease-in-out infinite;
     }
     .bg-orb.orb-2 {
-      width: 400px; height: 400px;
+      width: 500px; height: 500px;
       background: var(--accent);
-      bottom: -100px; left: -80px;
-      animation: floatB 15s ease-in-out infinite;
+      bottom: -150px; left: -120px;
+      animation: floatB 17s ease-in-out infinite;
     }
     .bg-orb.orb-3 {
-      width: 300px; height: 300px;
+      width: 350px; height: 350px;
       background: #ff6b9d;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation: floatC 10s ease-in-out infinite;
+      top: 55%; left: 45%;
+      animation: floatC 11s ease-in-out infinite;
     }
 
     @keyframes floatA {
       0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(-40px, 40px) scale(1.1); }
-      66% { transform: translate(20px, -20px) scale(0.9); }
+      33% { transform: translate(-50px, 60px) scale(1.15); }
+      66% { transform: translate(30px, -30px) scale(0.9); }
     }
     @keyframes floatB {
       0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -30px) scale(1.15); }
-      66% { transform: translate(-20px, 10px) scale(0.85); }
+      33% { transform: translate(40px, -40px) scale(1.2); }
+      66% { transform: translate(-30px, 20px) scale(0.85); }
     }
     @keyframes floatC {
       0%, 100% { transform: translate(-50%, -50%) scale(1); }
-      50% { transform: translate(-50%, -50%) scale(1.2); }
+      50% { transform: translate(-50%, -50%) scale(1.25); }
     }
 
     /* === Hero === */
@@ -70,106 +87,119 @@
 
     .hero-badge {
       display: inline-block;
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 500;
-      background: color-mix(in srgb, var(--primary) 15%, transparent);
+      background: color-mix(in srgb, var(--primary) 20%, transparent);
       color: var(--primary);
-      border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+      border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
       margin-bottom: 24px;
       letter-spacing: 0.5px;
+      backdrop-filter: blur(10px);
     }
 
     .hero h1 {
-      font-size: clamp(40px, 8vw, 64px);
+      font-size: clamp(44px, 8vw, 68px);
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--primary), var(--accent), #ff6b9d);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, #ff6b9d 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: -1px;
+      letter-spacing: -1.5px;
+      filter: drop-shadow(0 0 30px color-mix(in srgb, var(--primary) 30%, transparent));
     }
 
     .hero p {
       color: var(--text-secondary);
       font-size: 18px;
-      max-width: 480px;
+      max-width: 500px;
       margin: 0 auto 32px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .hero-stats {
       display: flex;
       justify-content: center;
-      gap: 40px;
+      gap: 48px;
       flex-wrap: wrap;
     }
     .hero-stat {
       text-align: center;
     }
     .hero-stat .num {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--text);
+      font-size: 30px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .hero-stat .label {
       font-size: 12px;
       color: var(--text-secondary);
+      letter-spacing: 1px;
+      margin-top: 4px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 2px;
     }
 
     /* === Tool Cards === */
     .tool-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
     }
 
     .tool-card {
       position: relative;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px 32px 32px;
+      background: color-mix(in srgb, var(--card-bg) 80%, transparent);
+      border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+      border-radius: 20px;
+      padding: 44px 36px 36px;
       text-align: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       overflow: hidden;
       text-decoration: none;
       display: block;
       color: inherit;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
-    .tool-card::before {
+    /* Card glow on hover */
+    .tool-card::after {
       content: '';
       position: absolute;
-      inset: 0;
-      border-radius: 16px;
+      inset: -2px;
+      border-radius: 22px;
+      z-index: -1;
       opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 0;
+      transition: opacity 0.35s ease;
     }
-
-    .tool-card.card-pixel::before {
-      background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--primary) 20%, transparent) 0%, transparent 70%);
+    .card-pixel::after {
+      background: linear-gradient(135deg, var(--primary), transparent 60%);
     }
-    .tool-card.card-word::before {
-      background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 20%, transparent) 0%, transparent 70%);
+    .card-word::after {
+      background: linear-gradient(135deg, var(--accent), transparent 60%);
     }
-
-    .tool-card:hover::before {
-      opacity: 1;
+    .tool-card:hover::after {
+      opacity: 0.4;
     }
 
     .tool-card:hover {
-      transform: translateY(-6px);
-      border-color: color-mix(in srgb, var(--primary) 50%, transparent);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
-                  0 0 0 1px color-mix(in srgb, var(--primary) 30%, transparent);
+      transform: translateY(-8px);
+      border-color: color-mix(in srgb, var(--primary) 60%, transparent);
+      box-shadow:
+        0 24px 80px rgba(124, 58, 237, 0.15),
+        0 0 0 1px color-mix(in srgb, var(--primary) 40%, transparent);
+    }
+
+    [data-theme="light"] .tool-card:hover {
+      box-shadow:
+        0 24px 80px rgba(124, 58, 237, 0.1),
+        0 0 0 1px color-mix(in srgb, var(--primary) 25%, transparent);
     }
 
     .tool-card > * {
@@ -178,38 +208,47 @@
     }
 
     .tool-card .icon-wrap {
-      width: 80px;
-      height: 80px;
-      border-radius: 20px;
+      width: 88px;
+      height: 88px;
+      border-radius: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
-      font-size: 40px;
-      transition: transform 0.3s ease;
+      margin: 0 auto 24px;
+      font-size: 44px;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
     }
 
     .card-pixel .icon-wrap {
-      background: color-mix(in srgb, var(--primary) 15%, transparent);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 25%, transparent), color-mix(in srgb, var(--primary) 10%, transparent));
+      box-shadow: 0 8px 32px color-mix(in srgb, var(--primary) 20%, transparent);
     }
     .card-word .icon-wrap {
-      background: color-mix(in srgb, var(--accent) 15%, transparent);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 25%, transparent), color-mix(in srgb, var(--accent) 10%, transparent));
+      box-shadow: 0 8px 32px color-mix(in srgb, var(--accent) 20%, transparent);
     }
 
     .tool-card:hover .icon-wrap {
-      transform: scale(1.1) rotate(-5deg);
+      transform: scale(1.08) rotate(-5deg);
+    }
+    .card-pixel:hover .icon-wrap {
+      box-shadow: 0 12px 40px color-mix(in srgb, var(--primary) 35%, transparent);
+    }
+    .card-word:hover .icon-wrap {
+      box-shadow: 0 12px 40px color-mix(in srgb, var(--accent) 35%, transparent);
     }
 
     .tool-card h3 {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .tool-card p {
       color: var(--text-secondary);
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 15px;
+      line-height: 1.7;
       margin-bottom: 24px;
     }
 
@@ -218,37 +257,43 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
     .tool-card .feature-tag {
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 5px 12px;
+      border-radius: 8px;
       font-size: 12px;
-      background: color-mix(in srgb, var(--primary) 10%, transparent);
+      font-weight: 500;
+      background: color-mix(in srgb, var(--primary) 12%, transparent);
       color: var(--text-secondary);
-      border: 1px solid var(--border);
+      border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
     }
 
     .tool-card .btn {
-      padding: 10px 28px;
+      padding: 12px 32px;
       font-size: 15px;
       font-weight: 600;
-      border-radius: 10px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
     }
 
     .card-pixel .btn {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
       color: #fff;
+      box-shadow: 0 4px 20px color-mix(in srgb, var(--primary) 35%, transparent);
     }
     .card-pixel .btn:hover {
-      background: var(--primary-hover);
+      box-shadow: 0 6px 28px color-mix(in srgb, var(--primary) 50%, transparent);
+      transform: translateY(-1px);
     }
     .card-word .btn {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), #05b88a);
       color: #000;
+      box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 35%, transparent);
     }
     .card-word .btn:hover {
-      filter: brightness(1.1);
+      box-shadow: 0 6px 28px color-mix(in srgb, var(--accent) 50%, transparent);
+      transform: translateY(-1px);
     }
 
     /* === Footer === */
@@ -257,7 +302,7 @@
       padding: 40px 24px;
       color: var(--text-secondary);
       font-size: 13px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
       position: relative;
       z-index: 1;
     }
@@ -271,29 +316,14 @@
 
     /* === Responsive === */
     @media (max-width: 720px) {
-      .hero h1 {
-        font-size: 36px;
-      }
-      .hero-stats {
-        gap: 24px;
-      }
-      .tool-card {
-        padding: 28px 20px 24px;
-      }
-      .tool-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* === Light theme adjustments === */
-    [data-theme="light"] .tool-card:hover {
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1),
-                  0 0 0 1px color-mix(in srgb, var(--primary) 20%, transparent);
+      .hero h1 { font-size: 38px; }
+      .hero-stats { gap: 28px; }
+      .tool-card { padding: 32px 24px 28px; }
+      .tool-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- Ambient background orbs -->
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
   <div class="bg-orb orb-3"></div>
